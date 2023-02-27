@@ -142,7 +142,7 @@ resource "random_string" "random" {
   length  = 15
   special = false
   lower   = true
-  numeric  = true
+  numeric = true
   upper   = false
 }
 
@@ -158,7 +158,7 @@ resource "azurerm_storage_account" "palo_bootstrap" {
 resource "azurerm_storage_share" "palo_bootstrap_share" {
   name                 = "share"
   storage_account_name = azurerm_storage_account.palo_bootstrap.name
-  quota = 1
+  quota                = 1
 }
 
 resource "azurerm_storage_share_directory" "config" {
@@ -187,7 +187,7 @@ resource "azurerm_storage_share_directory" "software" {
 
 resource "azurerm_storage_share_file" "init_cfg" {
   name             = "init-cfg.txt"
-  path = azurerm_storage_share_directory.config.name
+  path             = azurerm_storage_share_directory.config.name
   storage_share_id = azurerm_storage_share.palo_bootstrap_share.id
   source           = "${path.module}/bootstrap/init-cfg.txt"
 }
@@ -195,9 +195,9 @@ resource "azurerm_storage_share_file" "init_cfg" {
 
 locals {
   bootstrap_xml_generated = templatefile("${path.module}/bootstrap/bootstrap.xml", {
-    palo_vm_name= var.palo_vm_name
-    trust_subnet_router= cidrhost(var.trust_cidr, 1)
-    untrust_subnet_router= cidrhost(var.untrust_cidr,1)
+    palo_vm_name          = var.palo_vm_name
+    trust_subnet_router   = cidrhost(var.trust_cidr, 1)
+    untrust_subnet_router = cidrhost(var.untrust_cidr, 1)
   })
 }
 
@@ -209,7 +209,40 @@ resource "local_file" "bootstrap_xml_generated" {
 
 resource "azurerm_storage_share_file" "bootstrap_xml" {
   name             = "bootstrap.xml"
-  path = azurerm_storage_share_directory.config.name
+  path             = azurerm_storage_share_directory.config.name
   storage_share_id = azurerm_storage_share.palo_bootstrap_share.id
   source           = local_file.bootstrap_xml_generated.filename
+}
+
+
+resource "azurerm_linux_virtual_machine" "palo_byol" {
+  name                = var.palo_vm_name
+  resource_group_name = azurerm_resource_group.this.name
+  location            = azurerm_resource_group.this.location
+  size                = var.palo_size
+  admin_username      = var.admin_username
+  admin_password      = var.admin_password
+
+  disable_password_authentication = false
+  network_interface_ids = [
+    azurerm_network_interface.mgmt.id,
+    azurerm_network_interface.untrust.id,
+    azurerm_network_interface.trust.id
+  ]
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "StandardSSD_LRS"
+  }
+  source_image_reference {
+    publisher = "paloaltonetworks"
+    offer     = "vmseries-flex"
+    sku       = "byol"
+    version   = var.palo_version
+  }
+  plan {
+    name      = "byol"
+    product   = "vmseries-flex"
+    publisher = "paloaltonetworks"
+  }
+  custom_data = base64encode("storage-account=${azurerm_storage_account.palo_bootstrap.name},access-key=${azurerm_storage_account.palo_bootstrap.primary_access_key},file-share=${azurerm_storage_share.palo_bootstrap_share.name},share-directory=")
 }

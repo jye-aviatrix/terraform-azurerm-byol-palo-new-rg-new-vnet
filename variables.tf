@@ -51,3 +51,20 @@ variable "palo_version" {
   default = "10.1.4"
   description = "Provide Palo BYOL VM version"
 }
+
+variable "palo_size" {
+  type = string
+  default = "Standard_D3_v2"
+  description = "Provide Palo VM Size"
+}
+
+variable "admin_username" {
+  type = string
+  default = "fwadmin"
+  description = "Provide Palo default user name"
+}
+variable "admin_password" {
+  type = string
+  default = "sb%BSu/.T+j3"
+  description = "Provide Palo default password"
+}
