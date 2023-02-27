@@ -189,5 +189,27 @@ resource "azurerm_storage_share_file" "init_cfg" {
   name             = "init-cfg.txt"
   path = azurerm_storage_share_directory.config.name
   storage_share_id = azurerm_storage_share.palo_bootstrap_share.id
-  source           = "./bootstrap/init-cfg.txt"
+  source           = "${path.module}/bootstrap/init-cfg.txt"
+}
+
+
+locals {
+  bootstrap_xml_generated = templatefile("${path.module}/bootstrap/bootstrap.xml", {
+    palo_vm_name= var.palo_vm_name
+    trust_subnet_router= cidrhost(var.trust_cidr, 1)
+    untrust_subnet_router= cidrhost(var.untrust_cidr,1)
+  })
+}
+
+resource "local_file" "bootstrap_xml_generated" {
+  content  = local.bootstrap_xml_generated
+  filename = "${path.module}/bootstrap/bootstrap_xml_generated.xml"
+}
+
+
+resource "azurerm_storage_share_file" "bootstrap_xml" {
+  name             = "bootstrap.xml"
+  path = azurerm_storage_share_directory.config.name
+  storage_share_id = azurerm_storage_share.palo_bootstrap_share.id
+  source           = local_file.bootstrap_xml_generated.filename
 }

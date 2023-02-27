@@ -31,3 +31,5 @@ override.tf.json
 
 
 .terraform.lock.hcl
+
+bootstrap_xml_generated.xml

@@ -45,3 +45,9 @@ variable "palo_vm_name" {
   default = "palo-byol-vm"
   description = "Provide Palo BYOL VM name"
 }
+
+variable "palo_version" {
+  type = string
+  default = "10.1.4"
+  description = "Provide Palo BYOL VM version"
+}
