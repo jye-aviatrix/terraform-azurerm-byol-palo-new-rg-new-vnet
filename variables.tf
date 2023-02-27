@@ -45,8 +45,3 @@ variable "palo_vm_name" {
   default = "palo-byol-vm"
   description = "Provide Palo BYOL VM name"
 }
-
-
-data "http" "ip" {
-  url = "https://ifconfig.me"
-}
