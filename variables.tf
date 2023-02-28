@@ -40,6 +40,11 @@ variable "trust_cidr" {
   description = "Provide trust (LAN) subnet CIDR"
 }
 
+variable "palo_vm_count" {
+  type = number
+  default = 0
+  description = "Provide total number of Palo VM to be deployed"
+}
 variable "palo_vm_name" {
   type = string
   default = "palo-byol-vm"
