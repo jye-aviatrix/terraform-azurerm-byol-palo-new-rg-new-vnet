@@ -6,8 +6,8 @@ variable "region" {
 
 variable "availability_zones" {
   type = list
-  default = [1,2]
-  description = "Provide list of Availability zones to deploy Palo VM into"
+  default = [1,2,3]
+  description = "Provide list of Availability zones of the region to deploy Palo VM into, it must include all zones, otherwise will cause public IP to gets recreated."
 }
 
 variable "resource_group_name" {
