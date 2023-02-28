@@ -4,6 +4,12 @@ variable "region" {
   description = "Provide region of the resources"
 }
 
+variable "availability_zones" {
+  type = list
+  default = [1,2]
+  description = "Provide list of Availability zones to deploy Palo VM into"
+}
+
 variable "resource_group_name" {
   type        = string
   default     = "palo-byol"

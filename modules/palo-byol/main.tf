@@ -65,6 +65,7 @@ resource "azurerm_linux_virtual_machine" "palo_byol" {
   size                = var.palo_size
   admin_username      = var.admin_username
   admin_password      = var.admin_password
+  zone                = var.zone
 
   disable_password_authentication = false
   network_interface_ids = [

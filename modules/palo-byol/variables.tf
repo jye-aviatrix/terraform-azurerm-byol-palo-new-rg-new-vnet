@@ -3,6 +3,11 @@ variable "region" {
   description = "Provide region of the resources"
 }
 
+variable "zone" {
+  type = number
+  description = "Provide the Availability zone to deploy Palo VM into"
+}
+
 variable "resource_group_name" {
   type        = string
   description = "Provide Resoruce Group Name for Palo"
