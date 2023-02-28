@@ -46,4 +46,5 @@ resource "azurerm_lb_backend_address_pool_address" "this" {
 
 output "ilb_ip" {
   value = azurerm_lb.this.frontend_ip_configuration[0].private_ip_address
+  description = "Internal Load Balancer's private IP address"
 }

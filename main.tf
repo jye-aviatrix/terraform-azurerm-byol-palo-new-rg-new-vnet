@@ -20,4 +20,5 @@ module "palo_byol" {
 
 output "palo_byol" {
   value = module.palo_byol[*]
+  description = "Individual Palo info, such as mgmt public IP, name and trusted IP"
 }
