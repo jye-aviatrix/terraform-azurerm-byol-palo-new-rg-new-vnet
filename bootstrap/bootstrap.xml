@@ -326,7 +326,7 @@
             <routing-table>
               <ip>
                 <static-route>
-                  <entry name="10-8">
+                  <entry name="10.0.0.0-8">
                     <nexthop>
                       <ip-address>${trust_subnet_router}</ip-address>
                     </nexthop>
@@ -354,7 +354,7 @@
                       <unicast/>
                     </route-table>
                   </entry>
-                  <entry name="172-12">
+                  <entry name="172.16.0.0-12">
                     <nexthop>
                       <ip-address>${trust_subnet_router}</ip-address>
                     </nexthop>
@@ -368,7 +368,7 @@
                       <unicast/>
                     </route-table>
                   </entry>
-                  <entry name="192-16">
+                  <entry name="192.168.0.0-16">
                     <nexthop>
                       <ip-address>${trust_subnet_router}</ip-address>
                     </nexthop>
@@ -378,6 +378,20 @@
                     <interface>ethernet1/2</interface>
                     <metric>10</metric>
                     <destination>192.168.0.0/16</destination>
+                    <route-table>
+                      <unicast/>
+                    </route-table>
+                  </entry>
+                  <entry name="168.63.129.16-32">
+                    <nexthop>
+                      <ip-address>${trust_subnet_router}</ip-address>
+                    </nexthop>
+                    <bfd>
+                      <profile>None</profile>
+                    </bfd>
+                    <interface>ethernet1/2</interface>
+                    <metric>10</metric>
+                    <destination>168.63.129.16/32</destination>
                     <route-table>
                       <unicast/>
                     </route-table>

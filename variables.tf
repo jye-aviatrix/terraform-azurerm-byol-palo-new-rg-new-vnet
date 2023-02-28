@@ -48,7 +48,7 @@ variable "trust_cidr" {
 
 variable "palo_vm_count" {
   type = number
-  default = 0
+  default = 2
   description = "Provide total number of Palo VM to be deployed"
 }
 variable "palo_vm_name" {

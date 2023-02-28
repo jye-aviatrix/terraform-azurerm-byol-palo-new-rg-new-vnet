@@ -3,6 +3,7 @@ module "palo_byol" {
   count = var.palo_vm_count
   region = azurerm_resource_group.this.location
   zone = var.availability_zones[count.index%length(var.availability_zones)]
+  zones = var.availability_zones
   resource_group_name = azurerm_resource_group.this.name
   palo_vm_name = "${var.palo_vm_name}-${count.index+1}"
   mgmt_subnet_id = azurerm_subnet.mgmt.id

@@ -4,8 +4,9 @@ resource "azurerm_public_ip" "mgmt_pip" {
   location            = var.region
   name                = "${var.palo_vm_name}-mgmt-pip"
   allocation_method   = "Static"
-  sku                 = "Basic"
+  sku                 = "Standard"
   sku_tier            = "Regional"
+  zones = var.zones
 }
 
 resource "azurerm_public_ip" "untrust_pip" {
@@ -13,8 +14,9 @@ resource "azurerm_public_ip" "untrust_pip" {
   location            = var.region
   name                = "${var.palo_vm_name}-untrust-pip"
   allocation_method   = "Static"
-  sku                 = "Basic"
+  sku                 = "Standard"
   sku_tier            = "Regional"
+  zones = var.zones
 }
 
 resource "azurerm_network_interface" "mgmt" {

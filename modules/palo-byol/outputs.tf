@@ -5,3 +5,7 @@ output "mgmt_pip" {
 output "palo_name" {
   value = var.palo_vm_name
 }
+
+output "trust_ip" {
+  value = azurerm_network_interface.trust.private_ip_address
+}

@@ -8,6 +8,10 @@ variable "zone" {
   description = "Provide the Availability zone to deploy Palo VM into"
 }
 
+variable "zones" {
+  type = list
+  description = "Provide list of Availability zone to deploy Palo VM Public IP"
+}
 variable "resource_group_name" {
   type        = string
   description = "Provide Resoruce Group Name for Palo"
