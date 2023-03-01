@@ -33,5 +33,3 @@ override.tf.json
 .terraform.lock.hcl
 
 bootstrap.xml.*
-
-providers.tf
