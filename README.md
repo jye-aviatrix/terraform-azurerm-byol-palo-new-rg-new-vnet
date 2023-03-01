@@ -36,6 +36,31 @@ Reference to bootstrap/bootstrap.xml, find and replace VM name and static routes
     ${trust_subnet_router} -> First IP of trust subnet, three references for the three RFC1918 ranges
     ${untrust_subnet_router} -> First IP of untrust subnet, one reference for the default route
 ```
+## proiders.tf
+```
+terraform {
+  required_providers {
+    azurerm = {
+      source = "hashicorp/azurerm"
+    }
+    http = {
+      source = "hashicorp/http"
+    }
+    random = {
+      source = "hashicorp/random"
+    }
+    local = {
+      source = "hashicorp/local"
+    }
+  }
+}
+
+# Configure the Microsoft Azure Provider
+provider "azurerm" {
+  features {}
+}
+```
+
 ## Tested environment
 ```
 Terraform v1.3.7
