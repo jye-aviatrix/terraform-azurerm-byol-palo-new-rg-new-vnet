@@ -3,6 +3,9 @@ resource "azurerm_resource_group" "this" {
   location = var.region
 }
 
+output "resource_group_name" {
+  value = azurerm_resource_group.this.name
+}
 resource "azurerm_virtual_network" "this" {
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
