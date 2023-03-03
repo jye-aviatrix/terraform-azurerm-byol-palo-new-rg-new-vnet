@@ -6,11 +6,16 @@ resource "azurerm_resource_group" "this" {
 output "resource_group_name" {
   value = azurerm_resource_group.this.name
 }
+
 resource "azurerm_virtual_network" "this" {
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
   name                = var.vnet_name
   address_space       = [var.vnet_cidr]
+}
+
+output "vnet_name" {
+  value = azurerm_virtual_network.this.name
 }
 
 resource "azurerm_subnet" "mgmt" {
