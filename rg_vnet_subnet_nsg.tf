@@ -7,6 +7,10 @@ output "resource_group_name" {
   value = azurerm_resource_group.this.name
 }
 
+output "resource_group_region" {
+  value = azurerm_resource_group.this.location
+}
+
 resource "azurerm_virtual_network" "this" {
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
